@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, {useState} from 'react';
+import React from 'react';
 // import type {Node} from 'react';
 import {StyleSheet, View, Text, Button} from 'react-native';
 
@@ -21,26 +21,22 @@ const App = () => {
   //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   // };
 
-  const [name, setName] = useState('');
-  const [session, setSession] = useState({
-    number: 5,
-    title: 'React Native State',
-  });
-  const [current, setCurrent] = useState(false);
-
-  function nameUpdater() {
-    setName('Ekene');
-    setSession({number: '6', title: 'Session Six, React Native Styling'});
-    setCurrent(!current);
-  }
-
   return (
     <View style={styles.body}>
-      <Text style={styles.text}> Programming with {name} </Text>
-      <Text> {current ? 'current session' : 'next session'} </Text>
-      <Text style={styles.text}>Session No: {session.number} </Text>
-      <Text style={styles.text}> Session Title: {session.title} </Text>
-      <Button title="Update Name" onPress={nameUpdater} />
+      <Text style={styles.text}> Styled Text </Text>
+
+      <View style={styles.viewWrapper}>
+        <View style={styles.view1}>
+          <Text style={styles.text}> 1 </Text>
+        </View>
+        <View style={styles.view2}>
+          <Text style={styles.text}> 2 </Text>
+        </View>
+        <View style={styles.view3}>
+          <Text style={styles.text}> 3 </Text>
+        </View>
+      </View>
+
       {/* <Button
         title="Visit Youtube"
         onPress={() => {
@@ -54,15 +50,53 @@ const App = () => {
 
 const styles = StyleSheet.create({
   body: {
-    flex: 1,
-    backgroundColor: 'blue',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 10,
+    borderColor: 'pink',
+    borderRadius: 10,
   },
   text: {
     fontSize: 20,
     fontStyle: 'italic',
     margin: 10,
+    textTransform: 'uppercase',
+  },
+  button: {
+    width: 200,
+    height: 60,
+  },
+  viewWrapper: {
+    flexDirection: 'row',
+    borderColor: 'white',
+    borderWidth: 10,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  view1: {
+    width: 100,
+    height: 100,
+    backgroundColor: '#000fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  view2: {
+    width: 100,
+    height: 100,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  view3: {
+    width: 100,
+    height: 100,
+    backgroundColor: 'gold',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
