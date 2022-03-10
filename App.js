@@ -6,9 +6,10 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 // import type {Node} from 'react';
-import {StyleSheet, View, Text, Button} from 'react-native';
+import {StyleSheet, View, Text, FlatList} from 'react-native';
+import SectionList from 'react-native/Libraries/Lists/SectionList';
 
 // import {
 //   Colors,
@@ -21,82 +22,95 @@ const App = () => {
   //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   // };
 
+  const [items, setItems] = useState([
+    {name: 'Item 1'},
+    {name: 'Item 2'},
+    {name: 'Item 3'},
+    {name: 'Item 4'},
+    {name: 'Item 5'},
+    {name: 'Item 6'},
+    {name: 'Item 7'},
+    {name: 'Item 8'},
+  ]);
+
+  const DATA = [
+    {
+      title: 'title1',
+      data: ['nameTitle1-1', 'nameTitle1-2', 'nameTitle1-3'],
+    },
+    {
+      title: 'title2',
+      data: ['nameTitle2', 'nameTitle2-1'],
+    },
+    {
+      title: 'title3',
+      data: ['nameTitle3', 'nameTitle3-1', 'nameTitle3-2'],
+    },
+    {
+      title: 'title4',
+      data: ['nameTitle4', 'nameTitle4-1', 'nameTitle4-2'],
+    },
+  ];
+
   return (
     <View style={styles.body}>
-      <Text style={styles.text}> Styled Text </Text>
-
-      <View style={styles.viewWrapper}>
-        <View style={styles.view1}>
-          <Text style={styles.text}> 1 </Text>
-        </View>
-        <View style={styles.view2}>
-          <Text style={styles.text}> 2 </Text>
-        </View>
-        <View style={styles.view3}>
-          <Text style={styles.text}> 3 </Text>
-        </View>
-      </View>
-
-      {/* <Button
-        title="Visit Youtube"
-        onPress={() => {
-          Linking.openURL('https://youtube.com/programmingwithmash');
-        }}>
-        {' '}
-      </Button> */}
+      {/* <ScrollView> */}
+      <SectionList
+        keyExtractor={(item, index) => index.toString()}
+        sections={DATA}
+        renderItem={({item}) => <Text style={styles.text}> {item} </Text>}
+        renderSectionHeader={({section}) => (
+          <View style={styles.item}>
+            <Text style={styles.text}> {section.title} </Text>
+          </View>
+        )}
+      />
+      <FlatList
+        // horizontal
+        keyExtractor={(item, index) => index.toString()}
+        data={items}
+        renderItem={({item}) => (
+          <View style={styles.item}>
+            <Text style={styles.text}>{item.name}</Text>
+          </View>
+        )}
+      />
+      {/* <ScrollView style={styles.scroll}>
+        {items.map((element, index) => (
+          <View key={index} style={styles.item}>
+            <Text style={styles.text}>{element.item}</Text>
+          </View>
+        ))}
+      </ScrollView> */}
+      {/* </ScrollView> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   body: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 10,
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: 'blue',
     borderColor: 'pink',
     borderRadius: 10,
   },
+
   text: {
-    fontSize: 20,
+    fontSize: 50,
     fontStyle: 'italic',
+    fontWeight: 'bold',
     margin: 10,
     textTransform: 'uppercase',
   },
-  button: {
-    width: 200,
-    height: 60,
-  },
-  viewWrapper: {
-    flexDirection: 'row',
-    borderColor: 'white',
-    borderWidth: 10,
-    width: '100%',
-    alignItems: 'center',
+
+  item: {
+    // backgroundColor: '#4ae1fa',
+    backgroundColor: 'green',
+    flexDirection: 'column',
     justifyContent: 'center',
-  },
-  view1: {
-    width: 100,
-    height: 100,
-    backgroundColor: '#000fff',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  view2: {
-    width: 100,
-    height: 100,
-    backgroundColor: 'red',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  view3: {
-    width: 100,
-    height: 100,
-    backgroundColor: 'gold',
-    alignItems: 'center',
-    justifyContent: 'center',
+    margin: 10,
   },
 });
 
