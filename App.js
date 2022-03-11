@@ -17,8 +17,9 @@ import {
   // TouchableOpacity,
   // TouchableHighlight,
   Pressable,
-  Alert,
-  ToastAndroid,
+  // Alert,
+  // ToastAndroid,
+  Modal,
 } from 'react-native';
 
 // import {
@@ -34,6 +35,7 @@ const App = () => {
 
   const [name, setName] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   function onChangeText(val) {
     setName(val);
@@ -43,33 +45,43 @@ const App = () => {
     if (name.length > 3) {
       setSubmitted(!submitted);
     } else {
-      // ToastAndroid.show(
-      //   'The name must be longer than 3 characters',
-      //   ToastAndroid.LONG,
-      // );
-      ToastAndroid.showWithGravity(
-        'The name must be longer than 3 characters',
-        ToastAndroid.LONG,
-        ToastAndroid.CENTER,
-      );
-      // Alert.alert(
-      //   'Warning',
-      //   'The name must be longer than 3 characters',
-      //   [
-      //     {
-      //       text: "Don't show again",
-      //       onPress: () => console.warn("Don't show again pressed"),
-      //     },
-      //     {text: 'Cancel', onPress: () => console.warn('Cancel pressed')},
-      //     {text: 'OK', onPress: () => console.warn('OK Pressed')},
-      //   ],
-      //   {cancelable: true, onDismiss: () => console.warn('Alert dismissed')},
-      // );
+      setShowModal(true);
     }
+  }
+
+  function closeModal() {
+    setShowModal(false);
   }
 
   return (
     <View style={styles.body}>
+      <Modal
+        visible={showModal}
+        onRequestClose={closeModal}
+        animationType={'slide'}
+        hardwareAccelerated>
+        <View style={styles.modalCenteredView}>
+          <View style={styles.warningModal}>
+            <View style={styles.warningModalTitle}>
+              <Text style={styles.text}>WARNING! Modal Title </Text>
+            </View>
+
+            <View style={styles.warningModalBody}>
+              <Text style={styles.modalText}>
+                The name must be longer than 3 characters
+              </Text>
+            </View>
+            <View>
+              <Pressable
+                style={styles.warningModalButton}
+                onPress={closeModal}
+                android_ripple={{color: 'whitesmoke'}}>
+                <Text style={styles.modalText}>OK</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
       <View style={styles.item}>
         <Text style={styles.text}>Please write your name</Text>
         <TextInput
@@ -160,6 +172,45 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: 'white',
+  },
+  modalCenteredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00000099',
+  },
+  warningModal: {
+    width: 300,
+    height: 300,
+    backgroundColor: '#fff',
+    borderColor: '#000',
+    borderRadius: 20,
+  },
+  warningModalTitle: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ff0',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+  },
+  warningModalBody: {
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 5,
+  },
+  modalText: {
+    fontSize: 25,
+    textAlign: 'center',
+  },
+  warningModalButton: {
+    backgroundColor: 'lightgrey',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
   },
 });
 
