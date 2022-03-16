@@ -24,6 +24,9 @@ import {
   ImageBackground,
 } from 'react-native';
 
+import MashButton from './components/BUTTON/MashButton';
+import NativeModal from './components/MODAL/NativeModal';
+
 // import {
 //   Colors,
 // } from 'react-native/Libraries/NewAppScreen';
@@ -58,35 +61,10 @@ const App = () => {
 
   return (
     <ImageBackground
-      source={require('./assets/harrison.jpg')}
+      source={require('../assets/harrison.jpg')}
       style={styles.body}>
-      <Modal
-        visible={showModal}
-        onRequestClose={closeModal}
-        animationType={'slide'}
-        hardwareAccelerated>
-        <View style={styles.modalCenteredView}>
-          <View style={styles.warningModal}>
-            <View style={styles.warningModalTitle}>
-              <Text style={styles.text}>WARNING! Modal Title </Text>
-            </View>
+      <NativeModal showModal={showModal} closeModal={closeModal} />
 
-            <View style={styles.warningModalBody}>
-              <Text style={styles.modalText}>
-                The name must be longer than 3 characters
-              </Text>
-            </View>
-            <View>
-              <Pressable
-                style={styles.warningModalButton}
-                onPress={closeModal}
-                android_ripple={{color: 'whitesmoke'}}>
-                <Text style={styles.modalText}>OK</Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
-      </Modal>
       <View style={styles.item}>
         <Text style={styles.text}>Please write your name</Text>
         <TextInput
@@ -98,31 +76,20 @@ const App = () => {
           // multiline
         />
 
-        <Pressable
-          onPress={onPressHandler}
-          style={({pressed}) => [
-            {backgroundColor: pressed ? '#dddddd' : '#00ff00'},
-            styles.button,
-          ]}
-          hitSlop={{top: 10, bottom: 10, right: 10, left: 10}}
-          android_ripple={{color: '#00f'}}>
-          <Text style={styles.btnText}>
-            {submitted ? 'Register' : 'Submitting'}
-          </Text>
-        </Pressable>
+        <MashButton onPressHandler={onPressHandler} buttonText={'Submit'} />
       </View>
 
       {submitted ? (
         <View style={styles.flexCenter}>
           <Text> Your name is: {name}</Text>
 
-          <Image style={styles.image} source={require('./assets/reyem.jpg')} />
+          <Image style={styles.image} source={require('../assets/reyem.jpg')} />
         </View>
       ) : (
         <View style={styles.flexCenter}>
           <Image
             style={styles.image}
-            source={require('./assets/harrison.jpg')}
+            source={require('../assets/harrison.jpg')}
             resizeMode={'stretch'}
           />
         </View>
@@ -171,45 +138,6 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: 'white',
-  },
-  modalCenteredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#00000099',
-  },
-  warningModal: {
-    width: 300,
-    height: 300,
-    backgroundColor: '#fff',
-    borderColor: '#000',
-    borderRadius: 20,
-  },
-  warningModalTitle: {
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#ff0',
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-  },
-  warningModalBody: {
-    height: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 5,
-  },
-  modalText: {
-    fontSize: 25,
-    textAlign: 'center',
-  },
-  warningModalButton: {
-    backgroundColor: 'lightgrey',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderBottomRightRadius: 20,
-    borderBottomLeftRadius: 20,
   },
   image: {
     width: 250,
