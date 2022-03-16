@@ -20,6 +20,8 @@ import {
   // Alert,
   // ToastAndroid,
   Modal,
+  Image,
+  ImageBackground,
 } from 'react-native';
 
 // import {
@@ -45,6 +47,7 @@ const App = () => {
     if (name.length > 3) {
       setSubmitted(!submitted);
     } else {
+      setSubmitted(!submitted);
       setShowModal(true);
     }
   }
@@ -54,7 +57,9 @@ const App = () => {
   }
 
   return (
-    <View style={styles.body}>
+    <ImageBackground
+      source={require('./assets/harrison.jpg')}
+      style={styles.body}>
       <Modal
         visible={showModal}
         onRequestClose={closeModal}
@@ -105,30 +110,24 @@ const App = () => {
             {submitted ? 'Register' : 'Submitting'}
           </Text>
         </Pressable>
-
-        {/* <TouchableHighlight
-          onPress={onPressHandler}
-          style={styles.button}
-          activeOpacity={0.2}
-          underlayColor="lime">
-          <Text style={styles.btnText}>
-            {submitted ? 'Register' : 'Submitting'}
-          </Text>
-        </TouchableHighlight> */}
-
-        {/* <Button
-          style={styles.button}
-          title={submitted ? 'Register' : 'Submitting'}
-          onPress={onPressHandler}
-        /> */}
       </View>
 
       {submitted ? (
-        <View>
+        <View style={styles.flexCenter}>
           <Text> Your name is: {name}</Text>
+
+          <Image style={styles.image} source={require('./assets/reyem.jpg')} />
         </View>
-      ) : null}
-    </View>
+      ) : (
+        <View style={styles.flexCenter}>
+          <Image
+            style={styles.image}
+            source={require('./assets/harrison.jpg')}
+            resizeMode={'stretch'}
+          />
+        </View>
+      )}
+    </ImageBackground>
   );
 };
 
@@ -211,6 +210,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
+  },
+  image: {
+    width: 250,
+    height: 250,
+  },
+
+  flexCenter: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
