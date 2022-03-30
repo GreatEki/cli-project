@@ -32,7 +32,13 @@ const App = () => {
             }
             return <FontAwesome5 name={iconName} size={size} color={color} />;
           },
-        })}>
+        })}
+        tabBarOptions={{
+          activeTintColor: '#fof',
+          inactiveTintColor: '#555',
+          activeBackgroundColor: '#fff',
+          inactiveBackgroundColor: '#999',
+        }}>
         <Tab.Screen name="ScreenA" component={ScreenA} />
         <Tab.Screen name="ScreenB" component={ScreenB} />
       </Tab.Navigator>
